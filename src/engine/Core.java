@@ -175,7 +175,7 @@ public final class Core {
 					break;
 
 				case 4:
-					// manual.
+					//manual screen
 					currentScreen = new ManualScreen(width, height, FPS); //페이지 이동
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " manual screen at " + FPS + " fps."); //메세지 띄우기
