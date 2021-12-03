@@ -3,6 +3,7 @@ package entity;
 import java.awt.Color;
 import java.util.Set;
 
+import engine.Audio;
 import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager.SpriteType;
@@ -14,6 +15,9 @@ import engine.DrawManager.SpriteType;
  * 
  */
 public class Ship extends Entity {
+
+	/** 효과음 변수 */
+	private static Audio backgroundMusic;
 
 	/** Time between shots. */
 	private static final int SHOOTING_INTERVAL = 750;
@@ -90,6 +94,11 @@ public class Ship extends Entity {
 	 * Switches the ship to its destroyed state.
 	 */
 	public final void destroy() {
+
+		/** 내 배 부서지는 소리 (뾰롱..?)*/
+		backgroundMusic = new Audio("src/audio/shipdestroy.wav", true);
+		backgroundMusic.start();
+
 		this.destructionCooldown.reset();
 	}
 
