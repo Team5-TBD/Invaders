@@ -4,10 +4,7 @@ import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
 
-import engine.Cooldown;
-import engine.Core;
-import engine.GameSettings;
-import engine.GameState;
+import engine.*;
 import entity.Bullet;
 import entity.BulletPool;
 import entity.EnemyShip;
@@ -70,6 +67,8 @@ public class GameScreen extends Screen {
 	private boolean levelFinished;
 	/** Checks if a bonus life is received. */
 	private boolean bonusLife;
+	/** Game Frame. */
+	private Frame coreFrame;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -78,7 +77,7 @@ public class GameScreen extends Screen {
 	 *            Current game state.
 	 * @param gameSettings
 	 *            Current game settings.
-	 * @param bonnusLife
+	 * @param bonusLife
 	 *            Checks if a bonus life is awarded this level.
 	 * @param width
 	 *            Screen width.
@@ -89,7 +88,7 @@ public class GameScreen extends Screen {
 	 */
 	public GameScreen(final GameState gameState,
 			final GameSettings gameSettings, final boolean bonusLife,
-			final int width, final int height, final int fps) {
+			final int width, final int height, final int fps, final Frame coreFrame) {
 		super(width, height, fps);
 
 		this.gameSettings = gameSettings;
@@ -101,6 +100,7 @@ public class GameScreen extends Screen {
 			this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
+		this.coreFrame = coreFrame;
 	}
 
 	/**
@@ -137,7 +137,6 @@ public class GameScreen extends Screen {
 
 		this.score += LIFE_SCORE * (this.lives - 1);
 		this.logger.info("Screen cleared with a score of " + this.score);
-
 		return this.returnCode;
 	}
 
@@ -148,6 +147,17 @@ public class GameScreen extends Screen {
 		super.update();
 
 		if (this.inputDelay.checkFinished() && !this.levelFinished) {
+
+			//게임 화면 멈추기 => update멈추기 => 쓰레드 멈추기
+			//스크린 하나 더 띄우기
+			//특정 키를 다시 누르면 게임 화면 재작동 => 쓰레드 다시 시작
+			if(inputManager.isKeyDown((KeyEvent.VK_ESCAPE))) {
+				Pause pausingTread = new Pause(this);
+				pausingTread.start();
+				pause();
+				this.logger.info("Pause screen is disposed");
+				drawManager.setFrame(coreFrame);
+			}
 
 			if (!this.ship.isDestroyed()) {
 				boolean moveRight = inputManager.isKeyDown(KeyEvent.VK_RIGHT)
@@ -327,6 +337,26 @@ public class GameScreen extends Screen {
 		int distanceY = Math.abs(centerAY - centerBY);
 
 		return distanceX < maxDistanceX && distanceY < maxDistanceY;
+	}
+
+	/**
+	 * Change isRunning variable.
+	 *
+	 * @param isRunning
+	 * 				Determine GameScreen.run() is working.
+	 */
+	public void changeIsRunning(boolean isRunning){
+		this.isRunning = isRunning;
+	}
+
+	/**
+	 * Change lives variable.
+	 *
+	 * @param lives
+	 * 			Remaining lives.
+	 */
+	public void changeLives(int lives){
+		this.lives = lives;
 	}
 
 	/**

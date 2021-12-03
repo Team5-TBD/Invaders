@@ -1,5 +1,6 @@
 package engine;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
@@ -77,7 +78,6 @@ public final class Core {
 	/** Logger handler for printing to console. */
 	private static ConsoleHandler consoleHandler;
 
-
 	/**
 	 * Test implementation.
 	 *
@@ -144,20 +144,17 @@ public final class Core {
 
 						currentScreen = new GameScreen(gameState,
 								gameSettings.get(gameState.getLevel() - 1),
-								bonusLife, width, height, FPS);
+								bonusLife, width, height, FPS, frame);
 						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 								+ " game screen at " + FPS + " fps.");
 						frame.setScreen(currentScreen);
 						LOGGER.info("Closing game screen.");
-
 						gameState = ((GameScreen) currentScreen).getGameState();
-
 						gameState = new GameState(gameState.getLevel() + 1,
 								gameState.getScore(),
 								gameState.getLivesRemaining(),
 								gameState.getBulletsShot(),
 								gameState.getShipsDestroyed());
-
 					} while (gameState.getLivesRemaining() > 0
 							&& gameState.getLevel() <= NUM_LEVELS);
 
@@ -307,7 +304,7 @@ public final class Core {
 	/**
 	 * Constructor, not called.
 	 */
-	private Core() {
+	public Core() { //private
 
 	}
 
@@ -370,5 +367,9 @@ public final class Core {
 	public static Cooldown getVariableCooldown(final int milliseconds,
 											   final int variance) {
 		return new Cooldown(milliseconds, variance);
+	}
+
+	public static int getFps(){
+		return FPS;
 	}
 }

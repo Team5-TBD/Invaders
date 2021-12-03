@@ -678,11 +678,50 @@ public final class DrawManager {
 	}
 
 	/**
+	 * 일시정지 화면 그리기
+	 * Draws Pause screen
+	 * @param screen
+	 *            Screen to draw on.
+	 * @param option
+	 *            Option selected.
+	 */
+	public void drawPause(final Screen screen, final int option) {
+		String resumeString = "Resume";
+		String exitString = "Exit";
+		String PauseString = "PAUSE";
+		String instructionsString = "Press Space to confirm";
+
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, PauseString, screen.getHeight() / 8);
+
+		backBufferGraphics.setColor(Color.GRAY);
+		drawCenteredRegularString(screen, instructionsString,
+				screen.getHeight() / 5);
+
+		if (option == 1) // Exit
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, exitString,
+				screen.getHeight() - fontRegularMetrics.getHeight() * 4,
+				screen.getWidth() - 100);
+
+		if (option == 0) // Resume
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, resumeString,
+				screen.getHeight() - fontRegularMetrics.getHeight() * 4,
+				50);
+
+	}
+
+	/**
 	 * 크레딧 메뉴에서 이름 출력하는 함수
 	 * Draws a Text on Screen
 	 * @param screen
 	 * 				Screen to draw on.
-	 * @param text
+	 * @param string
 	 * 				String to draw
 	 */
 	public void drawText(final Screen screen, final String[] string){

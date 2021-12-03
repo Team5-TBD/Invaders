@@ -123,4 +123,25 @@ public class Screen {
 	public final int getHeight() {
 		return this.height;
 	}
+
+	/**
+	 * To pause screen.
+	 * using Thread, and Synchronize.
+	 */
+	public synchronized final void pause(){
+		this.logger.info("Pause game screen.");
+		try {
+			wait();
+		} catch (InterruptedException e) {}
+	}
+
+	/**
+	 * To restart screen.
+	 * using Thread, and Synchronize.
+	 */
+	public synchronized final void restart(){
+		this.logger.info("restart game screen.");
+		this.notify();
+	}
+
 }
