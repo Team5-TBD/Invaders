@@ -1,10 +1,12 @@
 package screen;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
 
 import engine.*;
+import engine.Frame;
 import entity.Bullet;
 import entity.BulletPool;
 import entity.EnemyShip;
@@ -287,6 +289,12 @@ public class GameScreen extends Screen {
 					if (!this.ship.isDestroyed()) {
 						this.ship.destroy();
 						this.lives--;
+						//color change
+						if(this.lives == 2){
+							this.ship.setColor("green2");
+						}else if(this.lives == 1){
+							this.ship.setColor("green3");
+						}
 						this.logger.info("Hit on player ship, " + this.lives
 								+ " lives remaining.");
 					}
@@ -296,8 +304,12 @@ public class GameScreen extends Screen {
 					if (!enemyShip.isDestroyed()
 							&& checkCollision(bullet, enemyShip)) {
 						this.score += enemyShip.getPointValue();
-						this.shipsDestroyed++;
-						this.enemyShipFormation.destroy(enemyShip);
+						if(enemyShip.getColor() == Color.magenta){
+							enemyShip.setColor(Color.pink);
+						}else{
+							this.shipsDestroyed++;
+							this.enemyShipFormation.destroy(enemyShip);
+						}
 						recyclable.add(bullet);
 					}
 				if (this.enemyShipSpecial != null

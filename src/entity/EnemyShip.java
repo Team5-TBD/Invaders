@@ -46,7 +46,7 @@ public class EnemyShip extends Entity {
 	 */
 	public EnemyShip(final int positionX, final int positionY,
 			final SpriteType spriteType) {
-		super(positionX, positionY, 12 * 2, 8 * 2, Color.WHITE);
+		super(positionX, positionY, 12 * 2, 8 * 2, Color.pink);
 
 		this.spriteType = spriteType;
 		this.animationCooldown = Core.getCooldown(500);
@@ -59,6 +59,7 @@ public class EnemyShip extends Entity {
 			break;
 		case EnemyShipB1:
 		case EnemyShipB2:
+			this.setColor(Color.magenta); //색상변경
 			this.pointValue = B_TYPE_POINTS;
 			break;
 		case EnemyShipC1:

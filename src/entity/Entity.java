@@ -57,6 +57,21 @@ public class Entity {
 		return color;
 	}
 
+	//set color add
+	public void setColor(String newcolor){
+		switch (newcolor){
+			case ("green2"):
+				this.color = new Color(150,250,150);
+				break;
+			case ("green3"):
+				this.color = new Color(230,250,200);
+				break;
+		}
+	}
+	public void setColor(Color newcolor){
+		this.color = newcolor;
+	}
+
 	/**
 	 * Getter for the X axis position of the entity.
 	 * 
