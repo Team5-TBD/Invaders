@@ -2,6 +2,7 @@ package entity;
 
 import java.awt.Color;
 
+import engine.Audio;
 import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager.SpriteType;
@@ -13,7 +14,10 @@ import engine.DrawManager.SpriteType;
  * 
  */
 public class EnemyShip extends Entity {
-	
+
+	/** 효과음 변수 */
+	private static Audio backgroundMusic;
+
 	/** Point value of a type A enemy. */
 	private static final int A_TYPE_POINTS = 10;
 	/** Point value of a type B enemy. */
@@ -139,6 +143,11 @@ public class EnemyShip extends Entity {
 	public final void destroy() {
 		this.isDestroyed = true;
 		this.spriteType = SpriteType.Explosion;
+
+		/** 적 배 부서지는 소리 (콰광) */
+		backgroundMusic = new Audio("src/audio/enemydestroy.wav", false);
+		backgroundMusic.start();
+
 	}
 
 	/**

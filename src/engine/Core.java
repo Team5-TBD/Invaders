@@ -34,6 +34,9 @@ public final class Core {
 	/** Max fps of current screen. default = 60*/
 	private static int FPS = 60;
 
+	/** 효과음 변수 */
+	private static Audio backgroundMusic;
+
 	/** Max lives. */
 	private static final int MAX_LIVES = 3;
 	/** Levels between extra life. */
@@ -85,6 +88,11 @@ public final class Core {
 	 *            Program args, ignored.
 	 */
 	public static void main(final String[] args) {
+
+		/**배경음악*/
+		backgroundMusic = new Audio("src/audio/backsound.wav", true);
+		backgroundMusic.start();
+
 		try {
 			LOGGER.setUseParentHandlers(false);
 
@@ -165,6 +173,14 @@ public final class Core {
 							+ gameState.getBulletsShot() + " bullets shot and "
 							+ gameState.getShipsDestroyed() + " ships destroyed.");
 					currentScreen = new ScoreScreen(width, height, FPS, gameState);
+
+					/** FrameUtills 화면 진동효과 */
+					FrameUtils.vibrate(frame);
+
+					/** 게임오버 효과음 */
+					backgroundMusic = new Audio("src/audio/gameover.wav", false);
+					backgroundMusic.start();
+
 					returnCode = frame.setScreen(currentScreen);
 					LOGGER.info("Closing score screen.");
 					break;

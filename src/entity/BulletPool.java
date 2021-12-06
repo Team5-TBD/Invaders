@@ -1,5 +1,7 @@
 package entity;
 
+import engine.Audio;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +15,9 @@ public final class BulletPool {
 
 	/** Set of already created bullets. */
 	private static Set<Bullet> pool = new HashSet<Bullet>();
+
+	/** 효과음 변수 */
+	private static Audio backgroundMusic;
 
 	/**
 	 * Constructor, not called.
@@ -37,6 +42,11 @@ public final class BulletPool {
 	public static Bullet getBullet(final int positionX,
 			final int positionY, final int speed) {
 		Bullet bullet;
+
+		/** 내 총알, 적 총알 발사 효과음*/
+		backgroundMusic = new Audio("src/audio/bulletshot.wav", true);
+		backgroundMusic.start();
+
 		if (!pool.isEmpty()) {
 			bullet = pool.iterator().next();
 			pool.remove(bullet);
