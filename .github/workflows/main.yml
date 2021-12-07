@@ -28,9 +28,6 @@ jobs:
         with:
           java-version: 17
           
-  run-tests:
-    runs-on: ubuntu-latest
-    steps:
       - name: Cache Maven packages
         uses: actions/cache@v2
         with:
@@ -40,3 +37,4 @@ jobs:
 
       - name: Test with Maven (junit5)
         run: mvn -B test --file pom.xml
+          
