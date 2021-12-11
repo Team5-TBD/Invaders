@@ -32,6 +32,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private static final double PROPORTION_C = 0.2;
 	/** Proportion of B-type ships. */
 	private static final double PROPORTION_B = 0.4;
+	private static final double PROPORTION_D = 0.1;
 	/** Lateral speed of the formation. */
 	private static final int X_SPEED = 8;
 	/** Downwards speed of the formation. */
@@ -138,10 +139,11 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 		for (List<EnemyShip> column : this.enemyShips) {
 			for (int i = 0; i < this.nShipsHigh; i++) {
-				if (i / (float) this.nShipsHigh < PROPORTION_C)
+				if (i / (float) this.nShipsHigh < PROPORTION_D)
+					spriteType = SpriteType.EnemyShipD1;
+				else if (i / (float) this.nShipsHigh < PROPORTION_C + PROPORTION_D)
 					spriteType = SpriteType.EnemyShipC1;
-				else if (i / (float) this.nShipsHigh < PROPORTION_B
-						+ PROPORTION_C)
+				else if (i / (float) this.nShipsHigh < PROPORTION_B + PROPORTION_C + PROPORTION_D)
 					spriteType = SpriteType.EnemyShipB1;
 				else
 					spriteType = SpriteType.EnemyShipA1;

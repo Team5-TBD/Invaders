@@ -24,6 +24,8 @@ public class EnemyShip extends Entity {
 	private static final int B_TYPE_POINTS = 20;
 	/** Point value of a type C enemy. */
 	private static final int C_TYPE_POINTS = 30;
+	/** Point value of a type D enemy. */
+	private static final int D_TYPE_POINTS = 50;
 	/** Point value of a bonus enemy. */
 	private static final int BONUS_TYPE_POINTS = 100;
 
@@ -65,6 +67,11 @@ public class EnemyShip extends Entity {
 		case EnemyShipC1:
 		case EnemyShipC2:
 			this.pointValue = C_TYPE_POINTS;
+			break;
+		case EnemyShipD1:
+		case EnemyShipD2:
+			this.setColor(Color.BLUE);
+			this.pointValue = D_TYPE_POINTS;
 			break;
 		default:
 			this.pointValue = 0;
@@ -131,6 +138,12 @@ public class EnemyShip extends Entity {
 				break;
 			case EnemyShipC2:
 				this.spriteType = SpriteType.EnemyShipC1;
+				break;
+			case EnemyShipD1:
+				this.spriteType = SpriteType.EnemyShipD2;
+				break;
+			case EnemyShipD2:
+				this.spriteType = SpriteType.EnemyShipD1;
 				break;
 			default:
 				break;
