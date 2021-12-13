@@ -306,7 +306,8 @@ public class GameScreen extends Screen {
 						this.score += enemyShip.getPointValue();
 						if(enemyShip.getColor() == Color.magenta){
 							enemyShip.setColor(Color.pink);
-						}else{
+						}
+						else{
 							this.shipsDestroyed++;
 							this.enemyShipFormation.destroy(enemyShip);
 						}

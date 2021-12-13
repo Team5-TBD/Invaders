@@ -25,7 +25,7 @@ public class EnemyShip extends Entity {
 	/** Point value of a type C enemy. */
 	private static final int C_TYPE_POINTS = 30;
 	/** Point value of a type D enemy. */
-	private static final int D_TYPE_POINTS = 50;
+	private static final int D_TYPE_POINTS = 10;
 	/** Point value of a bonus enemy. */
 	private static final int BONUS_TYPE_POINTS = 100;
 
@@ -35,6 +35,7 @@ public class EnemyShip extends Entity {
 	private boolean isDestroyed;
 	/** Values of the ship, in points, when destroyed. */
 	private int pointValue;
+	private int monster_hp = 1;
 
 	/**
 	 * Constructor, establishes the ship's properties.
@@ -73,6 +74,7 @@ public class EnemyShip extends Entity {
 			this.setColor(Color.BLUE);
 			this.pointValue = D_TYPE_POINTS;
 			break;
+
 		default:
 			this.pointValue = 0;
 			break;
@@ -90,6 +92,10 @@ public class EnemyShip extends Entity {
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;
 	}
+
+
+
+
 
 	/**
 	 * Getter for the score bonus if this ship is destroyed.
@@ -144,7 +150,10 @@ public class EnemyShip extends Entity {
 				break;
 			case EnemyShipD2:
 				this.spriteType = SpriteType.EnemyShipD1;
+				this.monster_hp=5;
 				break;
+
+
 			default:
 				break;
 			}
@@ -155,8 +164,14 @@ public class EnemyShip extends Entity {
 	 * Destroys the ship, causing an explosion.
 	 */
 	public final void destroy() {
-		this.isDestroyed = true;
-		this.spriteType = SpriteType.Explosion;
+		this.monster_hp -= 1;
+		if (this.monster_hp <= 0){
+			this.isDestroyed = true;
+			this.spriteType = SpriteType.Explosion;
+		}
+		if (this.spriteType == spriteType.EnemyShipD1 && this.monster_hp <= 2) {
+			this.monster_hp -= 1;
+		}
 
 		/** 적 배 부서지는 소리 (콰광) */
 		backgroundMusic = new Audio("src/audio/enemydestroy.wav", false);

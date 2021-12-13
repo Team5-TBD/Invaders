@@ -14,7 +14,8 @@ import screen.*;
 import screen.GameScreen;
 import screen.HighScoreScreen;
 import screen.ManualScreen;
-import screen.ScoreScreen;
+import screen.
+		ScoreScreen;
 import screen.Screen;
 import screen.TitleScreen;
 import screen.SettingScreen;
