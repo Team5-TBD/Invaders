@@ -73,6 +73,11 @@ public class EnemyShip extends Entity {
 			this.setColor(Color.BLUE);
 			this.pointValue = D_TYPE_POINTS;
 			break;
+		case Boss:
+			this.setColor(Color.RED);
+			this.pointValue = BONUS_TYPE_POINTS;
+			break;
+
 		default:
 			this.pointValue = 0;
 			break;
@@ -119,8 +124,7 @@ public class EnemyShip extends Entity {
 	public final void update() {
 		if (this.animationCooldown.checkFinished()) {
 			this.animationCooldown.reset();
-
-			switch (this.spriteType) {
+		switch (this.spriteType) {
 			case EnemyShipA1:
 				this.spriteType = SpriteType.EnemyShipA2;
 				break;

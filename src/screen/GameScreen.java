@@ -111,7 +111,8 @@ public class GameScreen extends Screen {
 	public final void initialize() {
 		super.initialize();
 
-		enemyShipFormation = new EnemyShipFormation(this.gameSettings);
+		enemyShipFormation = new EnemyShipFormation(this.gameSettings,this.level);
+		//enemyShipFormation = new EnemyShipFormation(this.gameSettings);
 		enemyShipFormation.attach(this);
 		this.ship = new Ship(this.width / 2, this.height - 30);
 		// Appears each 10-30 seconds.
@@ -228,6 +229,7 @@ public class GameScreen extends Screen {
 	private void draw() {
 		drawManager.initDrawing(this);
 
+
 		drawManager.drawEntity(this.ship, this.ship.getPositionX(),
 				this.ship.getPositionY());
 		if (this.enemyShipSpecial != null)
@@ -235,6 +237,11 @@ public class GameScreen extends Screen {
 					this.enemyShipSpecial.getPositionX(),
 					this.enemyShipSpecial.getPositionY());
 
+//		if(this.getGameState().getLevel()!=1){
+//			enemyShipFormation.draw();
+//		}else{
+//			enemyShipFormation.drawBoss();
+//		}
 		enemyShipFormation.draw();
 
 		for (Bullet bullet : this.bullets)
@@ -306,6 +313,8 @@ public class GameScreen extends Screen {
 						this.score += enemyShip.getPointValue();
 						if(enemyShip.getColor() == Color.magenta){
 							enemyShip.setColor(Color.pink);
+						}else if(enemyShip.getColor() == Color.red){
+							enemyShip.setColor(Color.magenta);
 						}else{
 							this.shipsDestroyed++;
 							this.enemyShipFormation.destroy(enemyShip);
@@ -336,14 +345,29 @@ public class GameScreen extends Screen {
 	 * @return Result of the collision test.
 	 */
 	private boolean checkCollision(final Entity a, final Entity b) {
+
 		// Calculate center point of the entities in both axis.
 		int centerAX = a.getPositionX() + a.getWidth() / 2;
 		int centerAY = a.getPositionY() + a.getHeight() / 2;
 		int centerBX = b.getPositionX() + b.getWidth() / 2;
 		int centerBY = b.getPositionY() + b.getHeight() / 2;
+
+		//boss type
+		if(b.getSpriteType() == DrawManager.SpriteType.Boss){
+			centerBX = b.getPositionX() + b.getWidth()*4 / 2;
+			centerBY = b.getPositionY() + b.getHeight()*2 / 2;
+		}
+
 		// Calculate maximum distance without collision.
 		int maxDistanceX = a.getWidth() / 2 + b.getWidth() / 2;
 		int maxDistanceY = a.getHeight() / 2 + b.getHeight() / 2;
+
+		//boss type
+		if(b.getSpriteType() == DrawManager.SpriteType.Boss){
+			maxDistanceX = a.getWidth() / 2 + b.getWidth()*4 / 2;
+			maxDistanceY = a.getHeight() / 2 + b.getHeight()*2 / 2;
+		}
+
 		// Calculates distance.
 		int distanceX = Math.abs(centerAX - centerBX);
 		int distanceY = Math.abs(centerAY - centerBY);

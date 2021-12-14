@@ -112,7 +112,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	 * @param gameSettings
 	 *            Current game settings.
 	 */
-	public EnemyShipFormation(final GameSettings gameSettings) {
+	public EnemyShipFormation(final GameSettings gameSettings, int level) {
 		this.drawManager = Core.getDrawManager();
 		this.logger = Core.getLogger();
 		this.enemyShips = new ArrayList<List<EnemyShip>>();
@@ -137,24 +137,48 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		for (int i = 0; i < this.nShipsWide; i++)
 			this.enemyShips.add(new ArrayList<EnemyShip>());
 
+
 		for (List<EnemyShip> column : this.enemyShips) {
 			for (int i = 0; i < this.nShipsHigh; i++) {
-				if (i / (float) this.nShipsHigh < PROPORTION_D)
-					spriteType = SpriteType.EnemyShipD1;
-				else if (i / (float) this.nShipsHigh < PROPORTION_C + PROPORTION_D)
-					spriteType = SpriteType.EnemyShipC1;
-				else if (i / (float) this.nShipsHigh < PROPORTION_B + PROPORTION_C + PROPORTION_D)
-					spriteType = SpriteType.EnemyShipB1;
-				else
-					spriteType = SpriteType.EnemyShipA1;
+				if(level != 1){
+					if (i / (float) this.nShipsHigh < PROPORTION_D)
+						spriteType = SpriteType.EnemyShipD1;
+					else if (i / (float) this.nShipsHigh < PROPORTION_C + PROPORTION_D)
+						spriteType = SpriteType.EnemyShipC1;
+					else if (i / (float) this.nShipsHigh < PROPORTION_B + PROPORTION_C + PROPORTION_D)
+						spriteType = SpriteType.EnemyShipB1;
+					else
+						spriteType = SpriteType.EnemyShipA1;
+				}else{
+					spriteType=SpriteType.Boss;
+				}
 
-				column.add(new EnemyShip((SEPARATION_DISTANCE 
+				column.add(new EnemyShip((SEPARATION_DISTANCE
 						* this.enemyShips.indexOf(column))
 								+ positionX, (SEPARATION_DISTANCE * i)
 								+ positionY, spriteType));
 				this.shipCount++;
 			}
 		}
+
+//		for (List<EnemyShip> column : this.enemyShips) {
+//			for (int i = 0; i < this.nShipsHigh; i++) {
+//				if (i / (float) this.nShipsHigh < PROPORTION_D)
+//					spriteType = SpriteType.EnemyShipD1;
+//				else if (i / (float) this.nShipsHigh < PROPORTION_C + PROPORTION_D)
+//					spriteType = SpriteType.EnemyShipC1;
+//				else if (i / (float) this.nShipsHigh < PROPORTION_B + PROPORTION_C + PROPORTION_D)
+//					spriteType = SpriteType.EnemyShipB1;
+//				else
+//					spriteType = SpriteType.EnemyShipA1;
+//
+//				column.add(new EnemyShip((SEPARATION_DISTANCE
+//						* this.enemyShips.indexOf(column))
+//								+ positionX, (SEPARATION_DISTANCE * i)
+//								+ positionY, spriteType));
+//				this.shipCount++;
+//			}
+//		}
 
 		this.shipWidth = this.enemyShips.get(0).get(0).getWidth();
 		this.shipHeight = this.enemyShips.get(0).get(0).getHeight();

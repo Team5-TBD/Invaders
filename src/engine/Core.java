@@ -44,6 +44,10 @@ public final class Core {
 	/** Total number of levels. */
 	private static final int NUM_LEVELS = 7;
 
+	/** Difficulty settings for level boss. */
+	private static final GameSettings SETTINGS_LEVEL_BOSS =
+			new GameSettings(1, 1, 60, 2000);
+
 	/** Difficulty settings for level 1. */
 	private static final GameSettings SETTINGS_LEVEL_1 =
 			new GameSettings(5, 4, 60, 2000);
@@ -118,6 +122,7 @@ public final class Core {
 
 
 		gameSettings = new ArrayList<GameSettings>();
+		gameSettings.add(SETTINGS_LEVEL_BOSS);
 		gameSettings.add(SETTINGS_LEVEL_1);
 		gameSettings.add(SETTINGS_LEVEL_2);
 		gameSettings.add(SETTINGS_LEVEL_3);

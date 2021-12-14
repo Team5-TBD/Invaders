@@ -79,7 +79,9 @@ public final class DrawManager {
 		/** Bonus ship. */
 		EnemyShipSpecial,
 		/** Destroyed enemy ship. */
-		Explosion
+		Explosion,
+		/** Boss monster. **/
+		Boss
 	};
 
 	/**
@@ -103,13 +105,13 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.EnemyShipB2, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipC1, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipC2, new boolean[12][8]);
-
 			spriteMap.put(SpriteType.EnemyShipSpecial, new boolean[16][7]);
 			spriteMap.put(SpriteType.Explosion, new boolean[13][7]);
-
 			//new monster
 			spriteMap.put(SpriteType.EnemyShipD1, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipD2, new boolean[12][8]);
+			//boss
+			spriteMap.put(SpriteType.Boss, new boolean[48][16]);
 
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
@@ -198,6 +200,7 @@ public final class DrawManager {
 		boolean[][] image = spriteMap.get(entity.getSpriteType());
 
 		backBufferGraphics.setColor(entity.getColor());
+
 		for (int i = 0; i < image.length; i++)
 			for (int j = 0; j < image[i].length; j++)
 				if (image[i][j])
