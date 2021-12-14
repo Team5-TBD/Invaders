@@ -15,20 +15,20 @@ class BulletTest {
         bullet = new Bullet(0, 0, 3);
     }
 
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
-    void setSprite() {
+    void creat(){
+        assertNotNull(bullet);
     }
 
     @Test
     void update() {
+        bullet.update();
+        assertEquals(3, bullet.getPositionY());
     }
 
     @Test
     void setSpeed() {
+        assertEquals(3, bullet.getSpeed());
     }
 
     @Test
