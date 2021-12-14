@@ -112,7 +112,6 @@ public class GameScreen extends Screen {
 		super.initialize();
 
 		enemyShipFormation = new EnemyShipFormation(this.gameSettings,this.level);
-		//enemyShipFormation = new EnemyShipFormation(this.gameSettings);
 		enemyShipFormation.attach(this);
 		this.ship = new Ship(this.width / 2, this.height - 30);
 		// Appears each 10-30 seconds.
@@ -228,8 +227,6 @@ public class GameScreen extends Screen {
 	 */
 	private void draw() {
 		drawManager.initDrawing(this);
-
-
 		drawManager.drawEntity(this.ship, this.ship.getPositionX(),
 				this.ship.getPositionY());
 		if (this.enemyShipSpecial != null)
@@ -237,11 +234,6 @@ public class GameScreen extends Screen {
 					this.enemyShipSpecial.getPositionX(),
 					this.enemyShipSpecial.getPositionY());
 
-//		if(this.getGameState().getLevel()!=1){
-//			enemyShipFormation.draw();
-//		}else{
-//			enemyShipFormation.drawBoss();
-//		}
 		enemyShipFormation.draw();
 
 		for (Bullet bullet : this.bullets)
